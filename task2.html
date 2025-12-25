@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task-2 : Team Task Management System</title>
+  
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:beige;
+      margin:0;
+      padding:0;
+    }
+    .container{
+      width:90%;
+      max-width:900px;
+      margin:30px auto;
+      background:#e6ffe6;
+      padding:20px;
+      border-radius:8px;
+      box-shadow:0 2px 10px rgba(0,0,0,1);
+    }
+    h2{
+        text-align: center;
+        color:#0853f5;
+        font-weight:600;
+    }
+    h3{
+        text-align:center;
+        color:#374151;
+    }
+
+    input, textarea, select, button{
+      width:99%;
+      padding:10px;
+      margin:8px 0;
+    }
+    button{
+      background:#007bff;
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      border-radius:4px;
+    }
+    button:hover{
+      background:#0056b3;
+    }
+    .task{
+      border:1px solid #ddd;
+      padding:10px;
+      margin:10px 0;
+      border-radius:6px;
+    }
+    .completed{
+      background:#e6ffe6;
+    }
+    .filters button{
+      width:auto;
+      margin-right:5px;
+      margin-top:10px;
+    }   
+    .hidden{
+      display:none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN / SIGNUP SECTION -->
+<div class="container" id="authSection">
+  <h2>Login / Signup</h2>
+  <input type="text" id="username" placeholder="Enter Username">
+  <input type="password" id="password" placeholder="Enter Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD SECTION -->
+<div class="container hidden" id="dashboard">
+  <h2>Team Task Management Dashboard</h2>
+
+  <h3>Add New Task</h3>
+  <input type="text" id="title" placeholder="Task Title">
+  <textarea id="description" placeholder="Task Description"></textarea>
+  <input type="text" id="assign" placeholder="Assign To">
+  <input type="date" id="date">
+  <button onclick="addTask()">Add Task</button>
+
+  <div class="filters">
+    <button onclick="filterTasks('All')">All</button>
+    <button onclick="filterTasks('Pending')">Pending</button>
+    <button onclick="filterTasks('In Progress')">In Progress</button>
+    <button onclick="filterTasks('Completed')">Completed</button>
+  </div>
+
+  <div id="taskList"></div>
+</div>
+
+<script>
+  let currentUser = null;
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  function login(){
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if(user && pass){
+      currentUser = user;
+      document.getElementById("authSection").classList.add("hidden");
+      document.getElementById("dashboard").classList.remove("hidden");
+      showTasks();
+    }else{
+      alert("Please enter username and password");
+    }
+  }
+
+  function addTask(){
+    const task = {
+      title: document.getElementById("title").value,
+      description: document.getElementById("description").value,
+      assign: document.getElementById("assign").value,
+      date: document.getElementById("date").value,
+      status: "Pending"
+    };
+
+    if(task.title === "" || task.assign === "" || task.date === ""){
+      alert("Please fill all required fields");
+      return;
+    }
+
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    clearForm();
+    showTasks();
+  }
+
+  function clearForm(){
+    document.getElementById("title").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("assign").value = "";
+    document.getElementById("date").value = "";
+  }
+
+  function showTasks(filter="All"){
+    const list = document.getElementById("taskList");
+    list.innerHTML = "";
+
+    tasks.forEach((task,index)=>{
+      if(filter === "All" || task.status === filter){
+        const div = document.createElement("div");
+        div.className = "task" + (task.status === "Completed" ? " completed" : "");
+
+        div.innerHTML = `
+          <b>${task.title}</b><br>
+          ${task.description}<br>
+          <b>Assigned To:</b> ${task.assign}<br>
+          <b>Due Date:</b> ${task.date}<br>
+          <b>Status:</b>
+          <select onchange="updateStatus(${index}, this.value)">
+            <option ${task.status==='Pending'?'selected':''}>Pending</option>
+            <option ${task.status==='In Progress'?'selected':''}>In Progress</option>
+            <option ${task.status==='Completed'?'selected':''}>Completed</option>
+          </select>
+        `;
+        list.appendChild(div);
+      }
+    });
+  }
+
+  function updateStatus(index, status){
+    tasks[index].status = status;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    showTasks();
+  }
+
+  function filterTasks(status){
+    showTasks(status);
+  }
+</script>
+
+</body>
+</html>
