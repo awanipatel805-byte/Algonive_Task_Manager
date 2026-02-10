@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page - Example E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f9fa; }
+        .product-gallery img { max-width: 100%; height: auto; cursor: pointer; }
+        .variant-btn { margin: 5px; }
+        .reviews { max-height: 400px; overflow-y: auto; }
+        .rating { color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <!-- Image Gallery (Feature 2) -->
+            <div class="col-md-6">
+                <div class="product-gallery">
+                    <img id="main-image" src="https://via.placeholder.com/500x500?text=Main+Image" alt="Product Main Image" class="img-fluid mb-3">
+                    <div class="d-flex flex-wrap">
+                        <img src="https://via.placeholder.com/100x100?text=Thumb1" alt="Thumbnail 1" class="img-thumbnail me-2 mb-2" onclick="changeImage(this.src)">
+                        <img src="https://via.placeholder.com/100x100?text=Thumb2" alt="Thumbnail 2" class="img-thumbnail me-2 mb-2" onclick="changeImage(this.src)">
+                        <img src="https://via.placeholder.com/100x100?text=Thumb3" alt="Thumbnail 3" class="img-thumbnail me-2 mb-2" onclick="changeImage(this.src)">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Details and Options (Features 1, 3, 4, 5) -->
+            <div class="col-md-6">
+                <h1>Product Name (e.g., Wireless Headphones)</h1>
+                <div class="rating mb-3">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4.0) 1,234 reviews
+                </div>
+                <p class="h4 text-success">$99.99 <del class="text-muted">$129.99</del></p>
+                
+                <!-- Variants/Options (Feature 3) -->
+                <div class="mb-3">
+                    <h5>Color:</h5>
+                    <button class="btn btn-outline-primary variant-btn" onclick="selectVariant('color', 'Black')">Black</button>
+                    <button class="btn btn-outline-primary variant-btn" onclick="selectVariant('color', 'White')">White</button>
+                    <button class="btn btn-outline-primary variant-btn" onclick="selectVariant('color', 'Blue')">Blue</button>
+                </div>
+                <div class="mb-3">
+                    <h5>Size:</h5>
+                    <button class="btn btn-outline-secondary variant-btn" onclick="selectVariant('size', 'S')">S</button>
+                    <button class="btn btn-outline-secondary variant-btn" onclick="selectVariant('size', 'M')">M</button>
+                    <button class="btn btn-outline-secondary variant-btn" onclick="selectVariant('size', 'L')">L</button>
+                </div>
+                
+                <!-- Add to Cart / Buy Now (Feature 5) -->
+                <div class="d-grid gap-2 mb-4">
+                    <button class="btn btn-warning btn-lg" onclick="addToCart()">Add to Cart</button>
+                    <button class="btn btn-success btn-lg" onclick="buyNow()">Buy Now</button>
+                </div>
+                
+                <!-- Product Description (Feature 4) -->
+                <h5>Description:</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <ul>
+                    <li>Feature 1: High-quality sound</li>
+                    <li>Feature 2: Long battery life</li>
+                    <li>Feature 3: Wireless connectivity</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Customer Reviews Section (Feature 6) -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3>Customer Reviews</h3>
+                <div class="reviews border p-3">
+                    <div class="review mb-3">
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p><strong>John Doe:</strong> Great product! Highly recommend.</p>
+                    </div>
+                    <div class="review mb-3">
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+                        <p><strong>Jane Smith:</strong> Good value for money, but could be better.</p>
+                    </div>
+                    <!-- Add more reviews dynamically via JS or backend -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function changeImage(src) {
+            document.getElementById('main-image').src = src;
+        }
+        function selectVariant(type, value) {
+            alert(`Selected ${type}: ${value}`); // In real app, update UI/state
+        }
+        function addToCart() {
+            alert('Added to cart!'); // Integrate with cart API
+        }
+        function buyNow() {
+            alert('Proceeding to checkout!'); // Redirect to checkout
+        }
+    </script>
+</body>
+</html>
