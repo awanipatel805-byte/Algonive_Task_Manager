@@ -1,0 +1,8 @@
+real-time-chat-app
+│── server.js
+│── package.json
+│── public
+    │── index.html
+    │── style.css
+    │── script.js
+
