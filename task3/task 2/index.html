@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="startScreen">
+    <h2>Welcome to Quiz App</h2>
+
+    <select id="category">
+        <option value="Web">Web Dev</option>
+        <option value="GK">GK</option>
+    </select>
+
+    <select id="level">
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+    </select>
+
+    <br><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<div id="quizBox" style="display:none;">
+    <h3 id="question"></h3>
+
+    <div id="options"></div>
+
+    <p id="progress"></p>
+</div>
+
+<div id="resultBox" style="display:none;">
+    <h2>Quiz Completed 🎉</h2>
+    <p id="score"></p>
+    <button onclick="restart()">Restart</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
